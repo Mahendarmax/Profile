@@ -431,9 +431,7 @@ a{color:inherit;text-decoration:none}
 .tech-orb:hover{background:rgba(var(--primary-rgb),.2);border-color:rgba(var(--primary-rgb),.5)}
 .tech-orb i{font-size:1.1rem;color:var(--neon)}
 
-/* 6 orbs on a perfect circle, radius 210px, 60° apart, counter-rotate to stay upright */
-/* 0°=top, 60°=top-right, 120°=bottom-right, 180°=bottom, 240°=bottom-left, 300°=top-left */
-/* sin/cos: 0°(0,-1) 60°(.866,-.5) 120°(.866,.5) 180°(0,1) 240°(-.866,.5) 300°(-.866,-.5) */
+/* 6 orbs on a perfect circle, radius 260px, 60° apart, counter-rotate to stay upright */
 .o1{animation:cSpin0 25s linear infinite}
 .o2{animation:cSpin60 25s linear infinite}
 .o3{animation:cSpin120 25s linear infinite}
@@ -443,28 +441,28 @@ a{color:inherit;text-decoration:none}
 
 @keyframes orbitSpin{to{transform:rotate(360deg)}}
 @keyframes cSpin0{
-  from{transform:translate(-50%,-50%) translate(0px,-210px) rotate(0deg)}
-  to{transform:translate(-50%,-50%) translate(0px,-210px) rotate(-360deg)}
+  from{transform:translate(-50%,-50%) translate(0px,-260px) rotate(0deg)}
+  to{transform:translate(-50%,-50%) translate(0px,-260px) rotate(-360deg)}
 }
 @keyframes cSpin60{
-  from{transform:translate(-50%,-50%) translate(182px,-105px) rotate(0deg)}
-  to{transform:translate(-50%,-50%) translate(182px,-105px) rotate(-360deg)}
+  from{transform:translate(-50%,-50%) translate(225px,-130px) rotate(0deg)}
+  to{transform:translate(-50%,-50%) translate(225px,-130px) rotate(-360deg)}
 }
 @keyframes cSpin120{
-  from{transform:translate(-50%,-50%) translate(182px,105px) rotate(0deg)}
-  to{transform:translate(-50%,-50%) translate(182px,105px) rotate(-360deg)}
+  from{transform:translate(-50%,-50%) translate(225px,130px) rotate(0deg)}
+  to{transform:translate(-50%,-50%) translate(225px,130px) rotate(-360deg)}
 }
 @keyframes cSpin180{
-  from{transform:translate(-50%,-50%) translate(0px,210px) rotate(0deg)}
-  to{transform:translate(-50%,-50%) translate(0px,210px) rotate(-360deg)}
+  from{transform:translate(-50%,-50%) translate(0px,260px) rotate(0deg)}
+  to{transform:translate(-50%,-50%) translate(0px,260px) rotate(-360deg)}
 }
 @keyframes cSpin240{
-  from{transform:translate(-50%,-50%) translate(-182px,105px) rotate(0deg)}
-  to{transform:translate(-50%,-50%) translate(-182px,105px) rotate(-360deg)}
+  from{transform:translate(-50%,-50%) translate(-225px,130px) rotate(0deg)}
+  to{transform:translate(-50%,-50%) translate(-225px,130px) rotate(-360deg)}
 }
 @keyframes cSpin300{
-  from{transform:translate(-50%,-50%) translate(-182px,-105px) rotate(0deg)}
-  to{transform:translate(-50%,-50%) translate(-182px,-105px) rotate(-360deg)}
+  from{transform:translate(-50%,-50%) translate(-225px,-130px) rotate(0deg)}
+  to{transform:translate(-50%,-50%) translate(-225px,-130px) rotate(-360deg)}
 }
 
 /* Scroll hint */

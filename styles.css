@@ -611,6 +611,58 @@ a{color:inherit;text-decoration:none}
 }
 .tl-tags span:hover{background:rgba(var(--primary-rgb),.2);transform:translateY(-2px)}
 
+/* --- Company Themes --- */
+.tl-company-logo{
+  display:flex;align-items:center;gap:8px;
+  margin-bottom:1rem;padding-bottom:.8rem;
+  border-bottom:1px solid var(--glass-border);
+}
+.tl-logo-text{
+  font-family:var(--font-display);font-size:.85rem;font-weight:700;
+  letter-spacing:.04em;text-transform:uppercase;
+}
+
+/* BMS — Purple */
+.tl-bms .tl-dot{
+  background:linear-gradient(135deg,#6B2D8B,#B5509A);
+  box-shadow:0 0 30px rgba(107,45,139,.6);
+}
+.tl-bms .tl-card::before{background:linear-gradient(90deg,#6B2D8B,#B5509A)}
+.tl-bms:hover .tl-dot{box-shadow:0 0 50px rgba(107,45,139,.8)}
+.tl-bms .tl-card:hover{border-color:rgba(107,45,139,.4);box-shadow:0 16px 48px rgba(107,45,139,.2)}
+.tl-bms .tl-company{background:linear-gradient(135deg,#6B2D8B,#B5509A);-webkit-background-clip:text;background-clip:text}
+.tl-bms .tl-tags span{background:rgba(107,45,139,.12);color:#B5509A;border-color:rgba(107,45,139,.25)}
+.tl-bms .tl-tags span:hover{background:rgba(107,45,139,.25)}
+.tl-bms .tl-list li::before{background:linear-gradient(135deg,#6B2D8B,#B5509A);box-shadow:0 0 8px rgba(107,45,139,.5)}
+.tl-bms .tl-logo-text{color:#B5509A}
+.tl-bms .tl-badge.current{background:rgba(107,45,139,.15);color:#B5509A;border-color:rgba(107,45,139,.3)}
+
+/* Mazik Tech — Microsoft Blue */
+.tl-mazik .tl-dot{
+  background:linear-gradient(135deg,#0078D4,#50E6FF);
+  box-shadow:0 0 30px rgba(0,120,212,.5);
+}
+.tl-mazik .tl-card::before{background:linear-gradient(90deg,#0078D4,#50E6FF)}
+.tl-mazik:hover .tl-dot{box-shadow:0 0 50px rgba(0,120,212,.7)}
+.tl-mazik .tl-card:hover{border-color:rgba(0,120,212,.4);box-shadow:0 16px 48px rgba(0,120,212,.2)}
+.tl-mazik .tl-company{background:linear-gradient(135deg,#0078D4,#50E6FF);-webkit-background-clip:text;background-clip:text}
+.tl-mazik .tl-tags span{background:rgba(0,120,212,.1);color:#50E6FF;border-color:rgba(0,120,212,.25)}
+.tl-mazik .tl-tags span:hover{background:rgba(0,120,212,.2)}
+.tl-mazik .tl-list li::before{background:linear-gradient(135deg,#0078D4,#50E6FF);box-shadow:0 0 8px rgba(0,120,212,.5)}
+
+/* Applied AI — Orange/Amber */
+.tl-aai .tl-dot{
+  background:linear-gradient(135deg,#FF6F00,#FFB300);
+  box-shadow:0 0 30px rgba(255,111,0,.5);
+}
+.tl-aai .tl-card::before{background:linear-gradient(90deg,#FF6F00,#FFB300)}
+.tl-aai:hover .tl-dot{box-shadow:0 0 50px rgba(255,111,0,.7)}
+.tl-aai .tl-card:hover{border-color:rgba(255,111,0,.4);box-shadow:0 16px 48px rgba(255,111,0,.2)}
+.tl-aai .tl-company{background:linear-gradient(135deg,#FF6F00,#FFB300);-webkit-background-clip:text;background-clip:text}
+.tl-aai .tl-tags span{background:rgba(255,111,0,.1);color:#FFB300;border-color:rgba(255,111,0,.25)}
+.tl-aai .tl-tags span:hover{background:rgba(255,111,0,.2)}
+.tl-aai .tl-list li::before{background:linear-gradient(135deg,#FF6F00,#FFB300);box-shadow:0 0 8px rgba(255,111,0,.5)}
+
 /* ---------- SKILLS ---------- */
 .skills{background:var(--dark2);position:relative}
 .skills::before{

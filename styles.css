@@ -47,6 +47,44 @@ a{color:inherit;text-decoration:none}
 
 .container{max-width:1200px;margin:0 auto;padding:0 24px}
 
+/* ---------- Animated Background Grid ---------- */
+.bg-grid{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(var(--primary-rgb),.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(var(--primary-rgb),.03) 1px,transparent 1px);
+  background-size:60px 60px;
+  animation:gridMove 20s linear infinite;
+}
+@keyframes gridMove{to{background-position:60px 60px}}
+
+.bg-gradient-orbs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bg-orb{
+  position:absolute;border-radius:50%;filter:blur(100px);
+  animation:orbDrift 20s ease-in-out infinite;
+}
+.bg-orb-1{
+  width:500px;height:500px;top:-10%;left:-5%;
+  background:rgba(var(--primary-rgb),.12);
+  animation-duration:20s;
+}
+.bg-orb-2{
+  width:400px;height:400px;bottom:-5%;right:-5%;
+  background:rgba(var(--pink-rgb),.1);
+  animation-duration:25s;animation-delay:-5s;
+}
+.bg-orb-3{
+  width:350px;height:350px;top:40%;left:50%;
+  background:rgba(var(--accent-rgb),.08);
+  animation-duration:30s;animation-delay:-10s;
+}
+@keyframes orbDrift{
+  0%,100%{transform:translate(0,0) scale(1)}
+  25%{transform:translate(40px,-30px) scale(1.1)}
+  50%{transform:translate(-20px,50px) scale(.95)}
+  75%{transform:translate(30px,20px) scale(1.05)}
+}
+
 /* ---------- Preloader ---------- */
 #preloader{
   position:fixed;inset:0;z-index:10000;
@@ -74,21 +112,49 @@ a{color:inherit;text-decoration:none}
 @keyframes loaderSpin{to{transform:rotate(360deg)}}
 @keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 
-/* ---------- Custom Cursor ---------- */
+/* ---------- Custom Cursor — Comet Trail ---------- */
 .cursor-dot,.cursor-outline{
   position:fixed;top:0;left:0;pointer-events:none;z-index:9999;
   border-radius:50%;transform:translate(-50%,-50%);
-  transition:width .3s,height .3s,background .3s;
 }
-.cursor-dot{width:8px;height:8px;background:var(--neon)}
+.cursor-dot{
+  width:10px;height:10px;
+  background:var(--neon);
+  box-shadow:0 0 12px var(--neon),0 0 30px rgba(var(--neon-rgb),.4);
+  transition:width .2s,height .2s,background .2s,box-shadow .2s;
+}
+.cursor-dot.hover{
+  width:14px;height:14px;
+  background:var(--pink);
+  box-shadow:0 0 20px var(--pink),0 0 50px rgba(var(--pink-rgb),.5);
+}
 .cursor-outline{
-  width:36px;height:36px;
-  border:2px solid rgba(var(--neon-rgb),.5);
-  transition:width .25s,height .25s,border-color .25s;
+  width:40px;height:40px;
+  border:2px solid transparent;
+  background:conic-gradient(from 0deg,rgba(var(--neon-rgb),.6),rgba(var(--primary-rgb),.4),rgba(var(--pink-rgb),.3),transparent 70%) border-box;
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  padding:2px;
+  animation:cursorSpin 2s linear infinite;
+  transition:width .3s,height .3s,opacity .3s;
 }
-.cursor-outline.hover{width:56px;height:56px;border-color:var(--pink)}
+.cursor-outline.hover{
+  width:60px;height:60px;
+  animation-duration:1s;
+}
+@keyframes cursorSpin{to{transform:translate(-50%,-50%) rotate(360deg)}}
 
-@media(pointer:coarse){.cursor-dot,.cursor-outline{display:none}body{cursor:auto}}
+.cursor-trail{
+  position:fixed;pointer-events:none;z-index:9998;
+  width:6px;height:6px;border-radius:50%;
+  background:var(--neon);
+  box-shadow:0 0 8px var(--neon);
+  opacity:0;transform:translate(-50%,-50%) scale(1);
+  transition:none;
+}
+
+@media(pointer:coarse){.cursor-dot,.cursor-outline,.cursor-trail{display:none}body{cursor:auto}}
 
 /* ---------- Scroll Progress ---------- */
 .scroll-progress{
@@ -315,10 +381,12 @@ a{color:inherit;text-decoration:none}
 .o3{bottom:15%;left:-12%;animation-delay:.8s}
 .o4{bottom:5%;right:-8%;animation-delay:1.2s}
 .o5{top:45%;right:-14%;animation-delay:1.6s}
+.o6{bottom:30%;left:-6%;animation-delay:2s}
 
 @keyframes orbFloat{
   0%,100%{transform:translateY(0) rotate(0deg)}
-  50%{transform:translateY(-14px) rotate(3deg)}
+  33%{transform:translateY(-14px) rotate(3deg)}
+  66%{transform:translateY(6px) rotate(-2deg)}
 }
 
 /* Scroll hint */
@@ -357,6 +425,12 @@ a{color:inherit;text-decoration:none}
   border:1px solid rgba(var(--primary-rgb),.2);
   font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;
   color:var(--primary);margin-bottom:1.2rem;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  animation:tagGlow 3s ease infinite;
+}
+@keyframes tagGlow{
+  0%,100%{box-shadow:0 0 0 rgba(var(--primary-rgb),0)}
+  50%{box-shadow:0 0 20px rgba(var(--primary-rgb),.15)}
 }
 .section-tag i{font-size:.8rem}
 
@@ -371,13 +445,28 @@ a{color:inherit;text-decoration:none}
 .section-title::after{
   content:'';display:block;width:60px;height:4px;
   background:var(--grad2);margin:1.2rem auto 0;border-radius:4px;
+  box-shadow:0 0 16px rgba(var(--primary-rgb),.4);
+  animation:lineGlow 2s ease infinite;
+}
+@keyframes lineGlow{
+  0%,100%{width:60px;box-shadow:0 0 16px rgba(var(--primary-rgb),.4)}
+  50%{width:80px;box-shadow:0 0 28px rgba(var(--primary-rgb),.6)}
 }
 
 /* ---------- ABOUT ---------- */
-.about{background:var(--dark2)}
+.about{background:var(--dark2);position:relative}
 .about::before{
-  content:'';position:absolute;top:0;left:0;width:100%;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(var(--primary-rgb),.3),transparent);
+  content:'';position:absolute;top:0;left:0;width:100%;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(var(--primary-rgb),.4),rgba(var(--accent-rgb),.3),transparent);
+  animation:lineSweep 4s ease infinite;
+}
+@keyframes lineSweep{
+  0%{background-position:-200% 0}
+  100%{background-position:200% 0}
+}
+.about::after{
+  content:'';position:absolute;bottom:0;left:0;width:100%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(var(--primary-rgb),.2),transparent);
 }
 
 .about-grid{
@@ -397,6 +486,11 @@ a{color:inherit;text-decoration:none}
   position:relative;overflow:hidden;
   transition:var(--transition);
   box-shadow:var(--shadow-card);
+}
+.quote-card:hover{
+  border-color:rgba(var(--primary-rgb),.3);
+  box-shadow:0 12px 40px rgba(var(--primary-rgb),.15),0 0 60px rgba(var(--primary-rgb),.05);
+  transform:translateY(-4px);
 }
 .qc-glow{
   position:absolute;top:-50%;right:-50%;width:100%;height:100%;
@@ -420,13 +514,27 @@ a{color:inherit;text-decoration:none}
 .info-chip:hover{border-color:rgba(var(--primary-rgb),.4);transform:translateY(-4px)}
 
 /* ---------- EXPERIENCE ---------- */
-.experience{background:var(--dark)}
+.experience{background:var(--dark);position:relative}
+.experience::before{
+  content:'';position:absolute;top:0;left:0;width:100%;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(var(--accent-rgb),.4),rgba(var(--pink-rgb),.3),transparent);
+}
+.experience::after{
+  content:'';position:absolute;bottom:0;left:0;width:100%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(var(--primary-rgb),.2),transparent);
+}
 
 .timeline{max-width:900px;margin:0 auto;position:relative;padding-left:60px}
 .timeline::before{
   content:'';position:absolute;left:28px;top:0;bottom:0;width:2px;
-  background:linear-gradient(180deg,var(--primary),var(--accent),var(--pink));
+  background:linear-gradient(180deg,var(--primary),var(--accent),var(--pink),var(--primary));
+  background-size:100% 200%;
+  animation:timelineGlow 4s ease infinite;
   border-radius:2px;
+}
+@keyframes timelineGlow{
+  0%,100%{background-position:0% 0%}
+  50%{background-position:0% 100%}
 }
 
 .tl-item{margin-bottom:3rem;position:relative}
@@ -503,10 +611,14 @@ a{color:inherit;text-decoration:none}
 .tl-tags span:hover{background:rgba(var(--primary-rgb),.2);transform:translateY(-2px)}
 
 /* ---------- SKILLS ---------- */
-.skills{background:var(--dark2)}
+.skills{background:var(--dark2);position:relative}
 .skills::before{
-  content:'';position:absolute;top:0;left:0;width:100%;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(var(--primary-rgb),.3),transparent);
+  content:'';position:absolute;top:0;left:0;width:100%;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(var(--primary-rgb),.4),rgba(var(--purple-rgb),.3),transparent);
+}
+.skills::after{
+  content:'';position:absolute;bottom:0;left:0;width:100%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(var(--primary-rgb),.2),transparent);
 }
 
 /* Orbit Visualization */
@@ -520,8 +632,13 @@ a{color:inherit;text-decoration:none}
   display:flex;align-items:center;justify-content:center;
   font-family:var(--font-display);font-size:.7rem;font-weight:700;
   color:#fff;text-align:center;line-height:1.2;
-  box-shadow:0 0 40px rgba(var(--primary-rgb),.5);
+  box-shadow:0 0 40px rgba(var(--primary-rgb),.5),0 0 80px rgba(var(--primary-rgb),.2);
   z-index:2;
+  animation:centerPulse 3s ease infinite;
+}
+@keyframes centerPulse{
+  0%,100%{box-shadow:0 0 40px rgba(var(--primary-rgb),.5),0 0 80px rgba(var(--primary-rgb),.2)}
+  50%{box-shadow:0 0 60px rgba(var(--primary-rgb),.7),0 0 120px rgba(var(--primary-rgb),.3)}
 }
 
 .orbit-track{
@@ -611,10 +728,14 @@ a{color:inherit;text-decoration:none}
 }
 
 /* ---------- PROJECTS ---------- */
-.projects{background:var(--dark)}
+.projects{background:var(--dark);position:relative}
 .projects::before{
-  content:'';position:absolute;top:0;left:0;width:100%;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(var(--primary-rgb),.3),transparent);
+  content:'';position:absolute;top:0;left:0;width:100%;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(var(--accent-rgb),.4),rgba(var(--primary-rgb),.3),transparent);
+}
+.projects::after{
+  content:'';position:absolute;bottom:0;left:0;width:100%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(var(--primary-rgb),.2),transparent);
 }
 
 .projects-grid{
@@ -675,10 +796,10 @@ a{color:inherit;text-decoration:none}
 .proj-card:hover .proj-arrow{opacity:1;transform:translate(0)}
 
 /* ---------- CONTACT ---------- */
-.contact{background:var(--dark2)}
+.contact{background:var(--dark2);position:relative}
 .contact::before{
-  content:'';position:absolute;top:0;left:0;width:100%;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(var(--primary-rgb),.3),transparent);
+  content:'';position:absolute;top:0;left:0;width:100%;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(var(--primary-rgb),.4),rgba(var(--pink-rgb),.3),transparent);
 }
 
 .contact-intro{
@@ -779,6 +900,7 @@ a{color:inherit;text-decoration:none}
   .hero-name .line-1,.hero-name .line-2{font-size:2.4rem}
   .profile-3d{width:240px;height:240px}
   .tech-orb{display:none}
+  .bg-grid{display:none}
 
   .timeline{padding-left:40px}
   .timeline::before{left:18px}

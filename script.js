@@ -19,22 +19,57 @@
     }
   });
 
-  // ─── Custom Cursor ────────────────────────
+  // ─── Custom Cursor — Comet Trail ─────────
   const dot = document.getElementById('cursorDot');
   const outline = document.getElementById('cursorOutline');
   let cursorX = 0, cursorY = 0, outlineX = 0, outlineY = 0;
 
+  // Trail particles pool
+  const TRAIL_COUNT = 16;
+  const trails = [];
+  let trailIdx = 0;
+
   if (dot && outline && window.matchMedia('(pointer:fine)').matches) {
+    // Create trail elements
+    for (let i = 0; i < TRAIL_COUNT; i++) {
+      const t = document.createElement('div');
+      t.className = 'cursor-trail';
+      document.body.appendChild(t);
+      trails.push(t);
+    }
+
+    let lastTrailTime = 0;
+
     document.addEventListener('mousemove', e => {
       cursorX = e.clientX;
       cursorY = e.clientY;
       dot.style.left = cursorX + 'px';
       dot.style.top = cursorY + 'px';
+
+      // Spawn trail particle every ~25ms
+      const now = performance.now();
+      if (now - lastTrailTime > 25) {
+        lastTrailTime = now;
+        const trail = trails[trailIdx % TRAIL_COUNT];
+        trail.style.left = cursorX + 'px';
+        trail.style.top = cursorY + 'px';
+        trail.style.opacity = '0.7';
+        trail.style.transform = 'translate(-50%,-50%) scale(1)';
+
+        // Fade out
+        requestAnimationFrame(() => {
+          trail.style.transition = 'opacity .5s ease, transform .5s ease';
+          trail.style.opacity = '0';
+          trail.style.transform = 'translate(-50%,-50%) scale(0.2)';
+          setTimeout(() => { trail.style.transition = 'none'; }, 500);
+        });
+        trailIdx++;
+      }
     });
 
     (function animateCursor() {
-      outlineX += (cursorX - outlineX) * 0.15;
-      outlineY += (cursorY - outlineY) * 0.15;
+      outlineX += (cursorX - outlineX) * 0.12;
+      outlineY += (cursorY - outlineY) * 0.12;
       outline.style.left = outlineX + 'px';
       outline.style.top = outlineY + 'px';
       requestAnimationFrame(animateCursor);
@@ -42,8 +77,8 @@
 
     // Hover states
     document.querySelectorAll('a, button, .magnetic, .tilt-card, .nav-link').forEach(el => {
-      el.addEventListener('mouseenter', () => outline.classList.add('hover'));
-      el.addEventListener('mouseleave', () => outline.classList.remove('hover'));
+      el.addEventListener('mouseenter', () => { outline.classList.add('hover'); dot.classList.add('hover'); });
+      el.addEventListener('mouseleave', () => { outline.classList.remove('hover'); dot.classList.remove('hover'); });
     });
   }
 
@@ -322,8 +357,9 @@
         if (entry.isIntersecting) {
           const counters = entry.target.querySelectorAll('.counter');
           counters.forEach(counter => {
-            const target = parseInt(counter.getAttribute('data-target'), 10);
-            animateCount(counter, target);
+            const target = parseFloat(counter.getAttribute('data-target'));
+            const isDecimal = counter.hasAttribute('data-decimal');
+            animateCount(counter, target, isDecimal);
           });
           observer.unobserve(entry.target);
         }
@@ -334,16 +370,17 @@
     if (statsEl) observer.observe(statsEl);
   }
 
-  function animateCount(el, target) {
+  function animateCount(el, target, isDecimal) {
+    const totalFrames = 60;
+    const step = target / totalFrames;
     let current = 0;
-    const step = Math.max(1, Math.ceil(target / 60));
     const interval = setInterval(() => {
       current += step;
       if (current >= target) {
         current = target;
         clearInterval(interval);
       }
-      el.textContent = current;
+      el.textContent = isDecimal ? current.toFixed(1) : Math.floor(current);
     }, 30);
   }
 
@@ -382,11 +419,15 @@
     document.querySelectorAll('a, button, .magnetic, .tilt-card, .nav-link').forEach(el => {
       el.addEventListener('mouseenter', () => {
         const o = document.getElementById('cursorOutline');
+        const d = document.getElementById('cursorDot');
         if (o) o.classList.add('hover');
+        if (d) d.classList.add('hover');
       });
       el.addEventListener('mouseleave', () => {
         const o = document.getElementById('cursorOutline');
+        const d = document.getElementById('cursorDot');
         if (o) o.classList.remove('hover');
+        if (d) d.classList.remove('hover');
       });
     });
   });

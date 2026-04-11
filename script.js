@@ -19,62 +19,63 @@
     }
   });
 
-  // ─── Custom Cursor — Comet Trail ─────────
+  // ─── Custom Cursor — Aurora Crosshair ─────────
   const dot = document.getElementById('cursorDot');
   const outline = document.getElementById('cursorOutline');
   let cursorX = 0, cursorY = 0, outlineX = 0, outlineY = 0;
   let dotX = 0, dotY = 0;
 
-  // Trail particles pool
-  const TRAIL_COUNT = 16;
+  // Aurora ribbon trail — smooth follow chain
+  const TRAIL_COUNT = 20;
   const trails = [];
-  let trailIdx = 0;
+  const trailPositions = [];
 
   if (dot && outline && window.matchMedia('(pointer:fine)').matches) {
-    // Create trail elements
+    // Create trail elements with decreasing size & opacity
     for (let i = 0; i < TRAIL_COUNT; i++) {
       const t = document.createElement('div');
       t.className = 'cursor-trail';
+      const size = Math.max(2, 4 - (i * 0.15));
+      t.style.width = size + 'px';
+      t.style.height = size + 'px';
       document.body.appendChild(t);
       trails.push(t);
+      trailPositions.push({ x: -100, y: -100 });
     }
-
-    let lastTrailTime = 0;
 
     document.addEventListener('mousemove', e => {
       cursorX = e.clientX;
       cursorY = e.clientY;
-
-      // Spawn trail particle every ~25ms
-      const now = performance.now();
-      if (now - lastTrailTime > 25) {
-        lastTrailTime = now;
-        const trail = trails[trailIdx % TRAIL_COUNT];
-        trail.style.transform = 'translate3d(' + (cursorX - 3) + 'px,' + (cursorY - 3) + 'px,0) scale(1)';
-        trail.style.opacity = '0.7';
-
-        // Fade out
-        requestAnimationFrame(() => {
-          trail.style.transition = 'opacity .5s ease, transform .5s ease';
-          trail.style.opacity = '0';
-          trail.style.transform = 'translate3d(' + (cursorX - 3) + 'px,' + (cursorY - 3) + 'px,0) scale(0.2)';
-          setTimeout(() => { trail.style.transition = 'none'; }, 500);
-        });
-        trailIdx++;
-      }
     }, { passive: true });
 
-    // Smooth cursor loop — interpolate at display refresh rate
+    // Smooth cursor loop — cascade trail for ribbon effect
     (function animateCursor() {
-      // Dot follows with slight smoothing for 360Hz feel
-      dotX += (cursorX - dotX) * 0.6;
-      dotY += (cursorY - dotY) * 0.6;
-      dot.style.transform = 'translate3d(' + (dotX - 5) + 'px,' + (dotY - 5) + 'px,0)';
+      // Dot follows cursor tightly
+      dotX += (cursorX - dotX) * 0.55;
+      dotY += (cursorY - dotY) * 0.55;
+      dot.style.transform = 'translate3d(' + (dotX - 4) + 'px,' + (dotY - 4) + 'px,0)';
 
-      // Outline follows with heavier smoothing
-      outlineX += (cursorX - outlineX) * 0.1;
-      outlineY += (cursorY - outlineY) * 0.1;
-      outline.style.transform = 'translate3d(' + (outlineX - 20) + 'px,' + (outlineY - 20) + 'px,0) rotate(' + ((performance.now() / 2000 * 360) % 360) + 'deg)';
+      // Outline follows with heavier smoothing, no spin
+      outlineX += (cursorX - outlineX) * 0.08;
+      outlineY += (cursorY - outlineY) * 0.08;
+      outline.style.transform = 'translate3d(' + (outlineX - 22) + 'px,' + (outlineY - 22) + 'px,0)';
+
+      // Aurora ribbon — each trail follows the one before it
+      let prevX = dotX, prevY = dotY;
+      for (let i = 0; i < TRAIL_COUNT; i++) {
+        const pos = trailPositions[i];
+        const ease = 0.35 - (i * 0.012);
+        pos.x += (prevX - pos.x) * Math.max(ease, 0.05);
+        pos.y += (prevY - pos.y) * Math.max(ease, 0.05);
+
+        const opacity = Math.max(0, 0.5 - (i * 0.03));
+        const s = trails[i];
+        s.style.transform = 'translate3d(' + pos.x + 'px,' + pos.y + 'px,0)';
+        s.style.opacity = opacity;
+
+        prevX = pos.x;
+        prevY = pos.y;
+      }
 
       requestAnimationFrame(animateCursor);
     })();

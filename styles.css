@@ -127,44 +127,62 @@ a{color:inherit;text-decoration:none}
 @keyframes loaderSpin{to{transform:rotate(360deg)}}
 @keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 
-/* ---------- Custom Cursor — Comet Trail ---------- */
+/* ---------- Custom Cursor — Aurora Crosshair ---------- */
 .cursor-dot,.cursor-outline{
   position:fixed;top:0;left:0;pointer-events:none;z-index:9999;
-  border-radius:50%;
   will-change:transform;
   transform:translate3d(-9999px,-9999px,0);
 }
 .cursor-dot{
-  width:10px;height:10px;
-  background:var(--neon);
-  box-shadow:0 0 12px var(--neon),0 0 30px rgba(var(--neon-rgb),.4);
-  transition:width .2s cubic-bezier(.4,0,.2,1),height .2s cubic-bezier(.4,0,.2,1),background .2s,box-shadow .2s;
+  width:8px;height:8px;border-radius:50%;
+  background:#fff;
+  box-shadow:0 0 6px #fff,0 0 20px var(--neon),0 0 40px rgba(var(--neon-rgb),.3);
+  transition:width .25s cubic-bezier(.4,0,.2,1),height .25s cubic-bezier(.4,0,.2,1),background .25s,box-shadow .25s,border-radius .3s;
+}
+.cursor-dot::before,.cursor-dot::after{
+  content:'';position:absolute;background:rgba(var(--neon-rgb),.6);
+  border-radius:2px;
+  transition:all .3s cubic-bezier(.4,0,.2,1);
+}
+.cursor-dot::before{
+  width:1px;height:20px;left:50%;top:50%;
+  transform:translate(-50%,-50%);
+}
+.cursor-dot::after{
+  width:20px;height:1px;left:50%;top:50%;
+  transform:translate(-50%,-50%);
 }
 .cursor-dot.hover{
-  width:14px;height:14px;
+  width:12px;height:12px;
   background:var(--pink);
-  box-shadow:0 0 20px var(--pink),0 0 50px rgba(var(--pink-rgb),.5);
+  box-shadow:0 0 10px var(--pink),0 0 30px rgba(var(--pink-rgb),.5),0 0 60px rgba(var(--pink-rgb),.2);
+  border-radius:3px;
 }
+.cursor-dot.hover::before,.cursor-dot.hover::after{
+  background:rgba(var(--pink-rgb),.6);
+}
+.cursor-dot.hover::before{height:28px}
+.cursor-dot.hover::after{width:28px}
+
 .cursor-outline{
-  width:40px;height:40px;
-  border:2px solid transparent;
-  background:conic-gradient(from 0deg,rgba(var(--neon-rgb),.6),rgba(var(--primary-rgb),.4),rgba(var(--pink-rgb),.3),transparent 70%) border-box;
-  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
-  mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
-  -webkit-mask-composite:xor;mask-composite:exclude;
-  padding:2px;
-  transition:width .3s cubic-bezier(.4,0,.2,1),height .3s cubic-bezier(.4,0,.2,1),opacity .3s;
+  width:44px;height:44px;border-radius:50%;
+  border:1.5px solid rgba(var(--neon-rgb),.35);
+  background:radial-gradient(circle,rgba(var(--neon-rgb),.04) 0%,transparent 70%);
+  transition:width .35s cubic-bezier(.4,0,.2,1),height .35s cubic-bezier(.4,0,.2,1),border-color .3s,border-radius .3s,background .3s;
 }
 .cursor-outline.hover{
-  width:60px;height:60px;
+  width:64px;height:64px;
+  border-color:rgba(var(--pink-rgb),.4);
+  border-radius:12px;
+  background:radial-gradient(circle,rgba(var(--pink-rgb),.06) 0%,transparent 70%);
 }
 
 .cursor-trail{
   position:fixed;pointer-events:none;z-index:9998;
-  width:6px;height:6px;border-radius:50%;
-  background:var(--neon);
-  box-shadow:0 0 8px var(--neon);
-  opacity:0;transform:translate(-50%,-50%) scale(1);
+  width:4px;height:4px;border-radius:50%;
+  background:linear-gradient(135deg,var(--neon),var(--primary),var(--pink));
+  box-shadow:0 0 6px var(--neon),0 0 12px rgba(var(--primary-rgb),.3);
+  opacity:0;
   transition:none;
   will-change:transform,opacity;
   contain:layout style;
@@ -410,12 +428,12 @@ a{color:inherit;text-decoration:none}
 .tech-orb i{font-size:1.1rem;color:var(--neon)}
 
 /* Position orbs evenly around circle (60° apart), counter-rotate to stay upright */
-.o1{top:-8%;left:50%;transform:translateX(-50%);animation:counterSpin 25s linear infinite}
-.o2{top:10%;right:-20%;animation:counterSpin 25s linear infinite}
-.o3{bottom:10%;right:-20%;animation:counterSpin 25s linear infinite}
-.o4{bottom:-8%;left:50%;transform:translateX(-50%);animation:counterSpin 25s linear infinite}
-.o5{bottom:10%;left:-20%;animation:counterSpin 25s linear infinite}
-.o6{top:10%;left:-20%;animation:counterSpin 25s linear infinite}
+.o1{top:-14%;left:50%;transform:translateX(-50%);animation:counterSpin 25s linear infinite}
+.o2{top:5%;right:-24%;animation:counterSpin 25s linear infinite}
+.o3{bottom:5%;right:-24%;animation:counterSpin 25s linear infinite}
+.o4{bottom:-14%;left:50%;transform:translateX(-50%);animation:counterSpin 25s linear infinite}
+.o5{bottom:5%;left:-24%;animation:counterSpin 25s linear infinite}
+.o6{top:5%;left:-24%;animation:counterSpin 25s linear infinite}
 
 @keyframes orbitSpin{
   to{transform:rotate(360deg)}

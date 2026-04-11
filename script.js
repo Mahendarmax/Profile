@@ -23,6 +23,7 @@
   const dot = document.getElementById('cursorDot');
   const outline = document.getElementById('cursorOutline');
   let cursorX = 0, cursorY = 0, outlineX = 0, outlineY = 0;
+  let dotX = 0, dotY = 0;
 
   // Trail particles pool
   const TRAIL_COUNT = 16;
@@ -43,35 +44,38 @@
     document.addEventListener('mousemove', e => {
       cursorX = e.clientX;
       cursorY = e.clientY;
-      dot.style.left = cursorX + 'px';
-      dot.style.top = cursorY + 'px';
 
       // Spawn trail particle every ~25ms
       const now = performance.now();
       if (now - lastTrailTime > 25) {
         lastTrailTime = now;
         const trail = trails[trailIdx % TRAIL_COUNT];
-        trail.style.left = cursorX + 'px';
-        trail.style.top = cursorY + 'px';
+        trail.style.transform = 'translate3d(' + (cursorX - 3) + 'px,' + (cursorY - 3) + 'px,0) scale(1)';
         trail.style.opacity = '0.7';
-        trail.style.transform = 'translate(-50%,-50%) scale(1)';
 
         // Fade out
         requestAnimationFrame(() => {
           trail.style.transition = 'opacity .5s ease, transform .5s ease';
           trail.style.opacity = '0';
-          trail.style.transform = 'translate(-50%,-50%) scale(0.2)';
+          trail.style.transform = 'translate3d(' + (cursorX - 3) + 'px,' + (cursorY - 3) + 'px,0) scale(0.2)';
           setTimeout(() => { trail.style.transition = 'none'; }, 500);
         });
         trailIdx++;
       }
-    });
+    }, { passive: true });
 
+    // Smooth cursor loop — interpolate at display refresh rate
     (function animateCursor() {
-      outlineX += (cursorX - outlineX) * 0.12;
-      outlineY += (cursorY - outlineY) * 0.12;
-      outline.style.left = outlineX + 'px';
-      outline.style.top = outlineY + 'px';
+      // Dot follows with slight smoothing for 360Hz feel
+      dotX += (cursorX - dotX) * 0.6;
+      dotY += (cursorY - dotY) * 0.6;
+      dot.style.transform = 'translate3d(' + (dotX - 5) + 'px,' + (dotY - 5) + 'px,0)';
+
+      // Outline follows with heavier smoothing
+      outlineX += (cursorX - outlineX) * 0.1;
+      outlineY += (cursorY - outlineY) * 0.1;
+      outline.style.transform = 'translate3d(' + (outlineX - 20) + 'px,' + (outlineY - 20) + 'px,0) rotate(' + ((performance.now() / 2000 * 360) % 360) + 'deg)';
+
       requestAnimationFrame(animateCursor);
     })();
 
@@ -84,14 +88,18 @@
 
   // ─── Scroll Progress Bar ──────────────────
   const progressBar = document.getElementById('scrollProgress');
+  let scrollTicking = false;
   function updateProgress() {
     const scrollTop = window.scrollY;
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     if (progressBar && docHeight > 0) {
-      progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+      progressBar.style.transform = 'scaleX(' + (scrollTop / docHeight) + ') translateZ(0)';
     }
+    scrollTicking = false;
   }
-  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('scroll', () => {
+    if (!scrollTicking) { scrollTicking = true; requestAnimationFrame(updateProgress); }
+  }, { passive: true });
 
   // ─── Navbar ───────────────────────────────
   const navbar = document.getElementById('navbar');
@@ -283,20 +291,26 @@
   // ─── 3D Tilt Effect ──────────────────────
   function initTilt() {
     document.querySelectorAll('.tilt-card').forEach(card => {
+      let tiltRaf = null;
       card.addEventListener('mousemove', function (e) {
-        const rect = this.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const cx = rect.width / 2;
-        const cy = rect.height / 2;
-        const rotateX = ((y - cy) / cy) * -8;
-        const rotateY = ((x - cx) / cx) * 8;
-        this.style.transform = 'perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale3d(1.02,1.02,1.02)';
+        const el = this;
+        if (tiltRaf) cancelAnimationFrame(tiltRaf);
+        tiltRaf = requestAnimationFrame(() => {
+          const rect = el.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const cx = rect.width / 2;
+          const cy = rect.height / 2;
+          const rotateX = ((y - cy) / cy) * -8;
+          const rotateY = ((x - cx) / cx) * 8;
+          el.style.transform = 'perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale3d(1.02,1.02,1.02) translateZ(0)';
+        });
       });
 
       card.addEventListener('mouseleave', function () {
-        this.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale3d(1,1,1)';
-        this.style.transition = 'transform .5s ease';
+        if (tiltRaf) cancelAnimationFrame(tiltRaf);
+        this.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale3d(1,1,1) translateZ(0)';
+        this.style.transition = 'transform .5s cubic-bezier(.4,0,.2,1)';
         setTimeout(() => { this.style.transition = ''; }, 500);
       });
 
@@ -310,22 +324,27 @@
   const profileCard = document.getElementById('profileCard');
   if (profileCard) {
     const inner = profileCard.querySelector('.profile-inner');
+    let profileRaf = null;
     profileCard.addEventListener('mousemove', e => {
-      const rect = profileCard.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const cx = rect.width / 2;
-      const cy = rect.height / 2;
-      const rx = ((y - cy) / cy) * -12;
-      const ry = ((x - cx) / cx) * 12;
-      if (inner) {
-        inner.style.transform = 'rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
-      }
+      if (profileRaf) cancelAnimationFrame(profileRaf);
+      profileRaf = requestAnimationFrame(() => {
+        const rect = profileCard.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const cx = rect.width / 2;
+        const cy = rect.height / 2;
+        const rx = ((y - cy) / cy) * -12;
+        const ry = ((x - cx) / cx) * 12;
+        if (inner) {
+          inner.style.transform = 'rotateX(' + rx + 'deg) rotateY(' + ry + 'deg) translateZ(0)';
+        }
+      });
     });
     profileCard.addEventListener('mouseleave', () => {
+      if (profileRaf) cancelAnimationFrame(profileRaf);
       if (inner) {
-        inner.style.transition = 'transform .6s ease';
-        inner.style.transform = 'rotateX(0) rotateY(0)';
+        inner.style.transition = 'transform .6s cubic-bezier(.4,0,.2,1)';
+        inner.style.transform = 'rotateX(0) rotateY(0) translateZ(0)';
         setTimeout(() => { inner.style.transition = ''; }, 600);
       }
     });
@@ -390,11 +409,11 @@
       const rect = this.getBoundingClientRect();
       const x = e.clientX - rect.left - rect.width / 2;
       const y = e.clientY - rect.top - rect.height / 2;
-      this.style.transform = 'translate(' + (x * 0.2) + 'px, ' + (y * 0.2) + 'px)';
+      this.style.transform = 'translate3d(' + (x * 0.2) + 'px,' + (y * 0.2) + 'px,0)';
     });
     btn.addEventListener('mouseleave', function () {
-      this.style.transform = 'translate(0, 0)';
-      this.style.transition = 'transform .3s ease';
+      this.style.transform = 'translate3d(0,0,0)';
+      this.style.transition = 'transform .3s cubic-bezier(.4,0,.2,1)';
       setTimeout(() => { this.style.transition = ''; }, 300);
     });
     btn.addEventListener('mouseenter', function () {
@@ -403,12 +422,19 @@
   });
 
   // ─── Parallax on Hero ─────────────────────
+  let parallaxTicking = false;
   window.addEventListener('scroll', () => {
-    const scrolled = window.scrollY;
-    const heroContent = document.querySelector('.hero-content');
-    if (heroContent && scrolled < window.innerHeight) {
-      heroContent.style.transform = 'translateY(' + (scrolled * 0.3) + 'px)';
-      heroContent.style.opacity = Math.max(0, 1 - scrolled / window.innerHeight);
+    if (!parallaxTicking) {
+      parallaxTicking = true;
+      requestAnimationFrame(() => {
+        const scrolled = window.scrollY;
+        const heroContent = document.querySelector('.hero-content');
+        if (heroContent && scrolled < window.innerHeight) {
+          heroContent.style.transform = 'translate3d(0,' + (scrolled * 0.3) + 'px,0)';
+          heroContent.style.opacity = Math.max(0, 1 - scrolled / window.innerHeight);
+        }
+        parallaxTicking = false;
+      });
     }
   }, { passive: true });
 

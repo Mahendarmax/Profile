@@ -3,119 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mahendar Shivarathri | Azure DevOps Engineer</title>
+    <title>Mahendar Shivarathri | Cyber Security Engineer</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader">
+            <div class="loader-ring"></div>
+            <div class="loader-ring"></div>
+            <div class="loader-ring"></div>
+            <span class="loader-text">MS</span>
+        </div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-outline" id="cursorOutline"></div>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <div class="logo">
+            <a href="#home" class="logo">
                 <span class="logo-text">MS</span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">Home</a></li>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#experience" class="nav-link">Experience</a></li>
                 <li><a href="#skills" class="nav-link">Skills</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- ===== HERO ===== -->
     <section id="home" class="hero">
-        <div class="hero-background">
-            <canvas id="particleCanvas"></canvas>
-        </div>
+        <canvas id="heroCanvas"></canvas>
         <div class="hero-content">
             <div class="hero-text">
-                <p class="hero-subtitle">Hello, I'm</p>
-                <h1 class="hero-title">Mahendar Shivarathri</h1>
-                <div class="typing-container">
-                    <span class="typing-text"></span>
-                    <span class="cursor">|</span>
+                <div class="hero-badge reveal-up" style="--d:.1s">
+                    <span class="badge-pulse"></span>
+                    Available for opportunities
                 </div>
-                <p class="hero-description">
-                    Automating cloud infrastructure and streamlining deployments with Azure DevOps expertise
+                <p class="hero-greeting reveal-up" style="--d:.2s">Hello, I'm</p>
+                <h1 class="hero-name reveal-up" style="--d:.3s">
+                    <span class="line-1">Mahendar</span>
+                    <span class="line-2">Shivarathri</span>
+                </h1>
+                <div class="typing-wrap reveal-up" style="--d:.4s">
+                    <span class="typing-prefix">&gt;&nbsp;</span>
+                    <span class="typing-text" id="typingText"></span>
+                    <span class="typing-cursor">|</span>
+                </div>
+                <p class="hero-desc reveal-up" style="--d:.5s">
+                    Securing cloud infrastructure, automating security workflows, and building resilient systems with expertise in Cyber Security, DevOps &amp; Cloud Engineering.
                 </p>
-                <div class="hero-cta">
-                    <a href="#contact" class="btn btn-primary">
+                <div class="hero-stats reveal-up" style="--d:.6s">
+                    <div class="h-stat">
+                        <span class="counter" data-target="3">0</span><span class="plus">+</span>
+                        <span class="h-stat-label">Years Exp.</span>
+                    </div>
+                    <div class="h-stat-divider"></div>
+                    <div class="h-stat">
+                        <span class="counter" data-target="5">0</span><span class="plus">+</span>
+                        <span class="h-stat-label">Projects</span>
+                    </div>
+                    <div class="h-stat-divider"></div>
+                    <div class="h-stat">
+                        <span class="counter" data-target="20">0</span><span class="plus">+</span>
+                        <span class="h-stat-label">Tools</span>
+                    </div>
+                </div>
+                <div class="hero-cta reveal-up" style="--d:.7s">
+                    <a href="#contact" class="btn btn-primary magnetic">
                         <span>Get In Touch</span>
                         <i class="fas fa-arrow-right"></i>
                     </a>
-                    <a href="#about" class="btn btn-secondary">
-                        <span>Learn More</span>
+                    <a href="#about" class="btn btn-outline magnetic">
+                        <span>Explore More</span>
                         <i class="fas fa-chevron-down"></i>
                     </a>
                 </div>
             </div>
-            <div class="hero-image">
-                <div class="image-container">
-                    <div class="image-wrapper">
-                        <img src="WhatsApp Image 2025-09-20 at 11.51.58_6c79ed5e.jpg" alt="Mahendar Shivarathri">
+
+            <div class="hero-visual reveal-right">
+                <div class="profile-3d" id="profileCard">
+                    <div class="profile-inner">
+                        <div class="profile-glow"></div>
+                        <div class="profile-img">
+                            <img src="WhatsApp Image 2025-09-20 at 11.51.58_6c79ed5e.jpg" alt="Mahendar Shivarathri">
+                        </div>
+                        <div class="orbit-ring r1"></div>
+                        <div class="orbit-ring r2"></div>
+                        <div class="orbit-ring r3"></div>
                     </div>
-                    <div class="floating-card card-1">
-                        <i class="fab fa-aws"></i>
-                        <span>AWS</span>
-                    </div>
-                    <div class="floating-card card-2">
-                        <i class="fab fa-microsoft"></i>
-                        <span>Azure</span>
-                    </div>
-                    <div class="floating-card card-3">
-                        <i class="fab fa-docker"></i>
-                        <span>Docker</span>
-                    </div>
-                    <div class="floating-card card-4">
-                        <i class="fas fa-infinity"></i>
-                        <span>DevOps</span>
-                    </div>
+                    <div class="tech-orb o1"><i class="fas fa-shield-halved"></i><span>Security</span></div>
+                    <div class="tech-orb o2"><i class="fab fa-microsoft"></i><span>Azure</span></div>
+                    <div class="tech-orb o3"><i class="fab fa-docker"></i><span>Docker</span></div>
+                    <div class="tech-orb o4"><i class="fab fa-python"></i><span>Python</span></div>
+                    <div class="tech-orb o5"><i class="fas fa-robot"></i><span>AI</span></div>
                 </div>
             </div>
         </div>
-        <div class="scroll-indicator">
-            <div class="mouse">
-                <div class="wheel"></div>
-            </div>
+        <div class="scroll-hint">
+            <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+            <span>Scroll Down</span>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
+    <!-- ===== ABOUT ===== -->
+    <section id="about" class="section about">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Get to know me</span>
-                <h2 class="section-title">About Me</h2>
+                <span class="section-tag reveal-up"><i class="fas fa-user"></i> Get to know me</span>
+                <h2 class="section-title reveal-up">About Me</h2>
             </div>
-            <div class="about-content">
+            <div class="about-grid">
                 <div class="about-text">
-                    <p class="highlight-text">
-                        I'm Mahendar Shivarathri, a Cloud & DevOps Engineer from Hyderabad with hands-on experience in Azure, AWS, CI/CD automation, Dockerization, and cloud-native application delivery.
+                    <p class="about-lead reveal-up">
+                        I'm Mahendar Shivarathri &mdash; a Cyber Security &amp; Cloud DevOps Engineer from Hyderabad, passionate about securing cloud environments and automating infrastructure at scale.
                     </p>
-                    <p>
-                        With over <strong>3.1+ years of experience</strong>, I specialize in building <strong>secure, scalable DevOps pipelines</strong>, automating deployments, optimizing cloud environments, and streamlining development workflows.
+                    <p class="reveal-up">
+                        With over <strong>3+ years of experience</strong>, I currently work as a <strong>Cyber Security Engineer at Bristol Myers Squibb (BMS)</strong>, where I leverage tools like <strong>Wiz, ServiceNow, Python</strong>, and <strong>AI Automation</strong> to strengthen security posture and drive intelligent threat response.
                     </p>
-                    <p>
-                        Currently working as an <strong>Azure DevOps Engineer at Mazik Tech Solutions Pvt Ltd</strong> I manage the complete product lifecycle in Azure DevOps, automate CRM processes, build CI/CD pipelines for .NET apps, and improve cloud security & infrastructure efficiency. I have also integrated <strong>SonarQube</strong>, developed monitoring dashboards, and built custom Docker images for optimized deployments.
+                    <p class="reveal-up">
+                        Previously, as an <strong>Azure DevOps Engineer at Mazik Tech Solutions</strong>, I managed the complete product lifecycle in Azure DevOps, automated CRM processes, built CI/CD pipelines for .NET apps, integrated <strong>SonarQube</strong> for code quality, and created custom Docker images for optimized deployments.
                     </p>
-                    <p>
-                        Previously, I worked at <strong>Applied AI Consulting</strong>  as a Junior Cloud Engineer where I migrated GitLab projects to GitHub, automated cloud infrastructure using <strong>Terraform</strong>, deployed workloads in Azure & AWS, and worked on <strong>Kubernetes</strong>, Docker, WordPress hosting, and SFTP automation.
+                    <p class="reveal-up">
+                        I began my journey at <strong>Applied AI Consulting</strong> as a Junior Cloud Engineer, migrating GitLab projects to GitHub, automating infrastructure using <strong>Terraform</strong>, deploying workloads in Azure &amp; AWS, and working on <strong>Kubernetes</strong>, Docker, and SFTP automation.
                     </p>
-                    <p>
-                        I am well-versed in tools like <strong>Terraform, Jenkins, AKS, Kubernetes, Ansible, GitHub Actions, GitLab, Azure DevOps, and AWS services</strong>. I enjoy solving real-world DevOps challenges by reducing manual effort, improving deployment speed, and ensuring secure, reliable infrastructure.
+                    <p class="reveal-up">
+                        I'm well-versed in <strong>Terraform, Jenkins, AKS, Kubernetes, Ansible, GitHub Actions, GitLab, Azure DevOps, AWS services, Wiz, and ServiceNow</strong>. I enjoy solving real-world security and DevOps challenges &mdash; reducing risk, improving deployment speed, and ensuring resilient infrastructure.
                     </p>
                 </div>
-                <div class="about-visual">
-                    <div class="visual-card">
-                        <div class="visual-content">
-                            <i class="fas fa-quote-left quote-icon"></i>
-                            <blockquote>
-                                Life is a continuous journey of learning; keep moving forward
-                            </blockquote>
-                            <p class="quote-author">- My Motto</p>
+                <div class="about-side">
+                    <div class="quote-card tilt-card reveal-up">
+                        <div class="qc-glow"></div>
+                        <i class="fas fa-quote-left qc-icon"></i>
+                        <blockquote>Life is a continuous journey of learning; keep moving forward</blockquote>
+                        <p class="qc-author">&mdash; My Motto</p>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-chip tilt-card reveal-up">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div><strong>Based in</strong><br>Hyderabad, India</div>
+                        </div>
+                        <div class="info-chip tilt-card reveal-up">
+                            <i class="fas fa-briefcase"></i>
+                            <div><strong>Current</strong><br>CyberSec @ BMS</div>
                         </div>
                     </div>
                 </div>
@@ -123,485 +168,255 @@
         </div>
     </section>
 
-    <!-- Experience Timeline -->
-    <section id="experience" class="experience">
+    <!-- ===== EXPERIENCE ===== -->
+    <section id="experience" class="section experience">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">My Journey</span>
-                <h2 class="section-title">Experience Timeline</h2>
+                <span class="section-tag reveal-up"><i class="fas fa-road"></i> My Journey</span>
+                <h2 class="section-title reveal-up">Experience</h2>
             </div>
             <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-icon">
-                        <i class="fab fa-microsoft"></i>
+                <!-- BMS -->
+                <div class="tl-item reveal-up">
+                    <div class="tl-marker">
+                        <div class="tl-dot"><i class="fas fa-shield-halved"></i></div>
                     </div>
-                    <div class="timeline-content">
-                        <h3>Azure DevOps Engineer</h3>
-                        <p class="timeline-company">Mazik Tech Solutions Pvt Ltd | Hyderabad </p>
-                        <ul class="timeline-details">
-                            <li>Managed end-to-end product lifecycle in Azure DevOps</li>
-                            <li>Automated CRM processes across teams, enhancing efficiency</li>
-                            <li>Built a system for automated testing and deployment of .NET applications across environments</li>
-                            <li>Integrated SonarQube for improved code quality and security in both local and cloud setups</li>
-                            <li>Designed dashboards to monitor and track software development processes</li>
-                            <li>Implemented security rules to protect DevOps projects</li>
-                            <li>Automated code migration and dashboard tasks, reducing manual efforts</li>
-                            <li>Introduced Agile practices to improve team collaboration and project efficiency</li>
-                            <li>Proficient in tools like Ansible, Jenkins, Tomcat, Nginx, and Docker for project optimization</li>
-                            <li>Developed CI/CD pipelines for seamless project deployments</li>
-                            <li>Created custom Docker images for optimized deployments</li>
+                    <div class="tl-card tilt-card">
+                        <span class="tl-badge current">Current</span>
+                        <h3>Cyber Security Engineer</h3>
+                        <p class="tl-company"><i class="fas fa-building"></i> Bristol Myers Squibb (BMS)</p>
+                        <ul class="tl-list">
+                            <li>Leveraging <strong>Wiz</strong> for cloud security posture management &amp; vulnerability detection across multi-cloud environments</li>
+                            <li>Managing security workflows and incident response automation through <strong>ServiceNow</strong></li>
+                            <li>Developing <strong>Python</strong>-based security scripts for threat analysis, log parsing, and automated remediation</li>
+                            <li>Implementing <strong>AI Automation</strong> for intelligent threat detection and security operations optimization</li>
+                            <li>Strengthening cloud security policies and compliance across enterprise infrastructure</li>
                         </ul>
+                        <div class="tl-tags">
+                            <span>Wiz</span><span>ServiceNow</span><span>Python</span><span>AI Automation</span><span>Cloud Security</span>
+                        </div>
                     </div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-icon">
-                        <i class="fas fa-cloud"></i>
+
+                <!-- Mazik -->
+                <div class="tl-item reveal-up">
+                    <div class="tl-marker">
+                        <div class="tl-dot"><i class="fab fa-microsoft"></i></div>
                     </div>
-                    <div class="timeline-content">
+                    <div class="tl-card tilt-card">
+                        <h3>Azure DevOps Engineer</h3>
+                        <p class="tl-company"><i class="fas fa-building"></i> Mazik Tech Solutions Pvt Ltd &bull; Hyderabad</p>
+                        <ul class="tl-list">
+                            <li>Managed end-to-end product lifecycle in Azure DevOps</li>
+                            <li>Automated CRM processes across teams, enhancing efficiency</li>
+                            <li>Built automated testing &amp; deployment systems for .NET applications across environments</li>
+                            <li>Integrated SonarQube for code quality and security in local and cloud setups</li>
+                            <li>Designed dashboards to monitor and track software development processes</li>
+                            <li>Implemented security rules to protect DevOps projects</li>
+                            <li>Introduced Agile practices to improve team collaboration and project efficiency</li>
+                            <li>Developed CI/CD pipelines and created custom Docker images for optimized deployments</li>
+                        </ul>
+                        <div class="tl-tags">
+                            <span>Azure DevOps</span><span>CI/CD</span><span>.NET</span><span>SonarQube</span><span>Docker</span><span>Jenkins</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Applied AI -->
+                <div class="tl-item reveal-up">
+                    <div class="tl-marker">
+                        <div class="tl-dot"><i class="fas fa-cloud"></i></div>
+                    </div>
+                    <div class="tl-card tilt-card">
                         <h3>Junior Cloud Engineer</h3>
-                        <p class="timeline-company">Applied AI Consulting | Pune </p>
-                        <ul class="timeline-details">
+                        <p class="tl-company"><i class="fas fa-building"></i> Applied AI Consulting &bull; Pune</p>
+                        <ul class="tl-list">
                             <li>Migrated GitLab repositories to GitHub, including issues, commits, and CI/CD pipelines</li>
                             <li>Set up and optimized GitHub Runner in AWS environments</li>
-                            <li>Developed Azure Pipelines for Node.js applications and deployed VMs for web apps in Azure</li>
-                            <li>Proficient in Azure services: Blob Storage, File Storage, DNS, Load Balancer, Active Directory, Virtual Network</li>
-                            <li>Experienced in AWS services: EC2, S3, IAM, VPC, RDS, CloudFormation</li>
-                            <li>Skilled in Docker, Kubernetes, and DevOps tools such as Terraform, shell scripting, and CI/CD pipelines</li>
+                            <li>Developed Azure Pipelines for Node.js apps and deployed VMs for web applications</li>
+                            <li>Worked with Azure services: Blob Storage, File Storage, DNS, Load Balancer, Active Directory, VNet</li>
+                            <li>Experienced in AWS: EC2, S3, IAM, VPC, RDS, CloudFormation</li>
+                            <li>Skilled in Docker, Kubernetes, Terraform, shell scripting, CI/CD pipelines</li>
                             <li>Worked with NGINX, WordPress, YAML on Linux, Ubuntu, and Windows platforms</li>
                             <li>Knowledgeable in AWS EKS and Velero for Kubernetes cluster backup and recovery</li>
                         </ul>
+                        <div class="tl-tags">
+                            <span>AWS</span><span>Azure</span><span>Terraform</span><span>Kubernetes</span><span>Docker</span><span>GitHub Actions</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
+    <!-- ===== SKILLS ===== -->
+    <section id="skills" class="section skills">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">What I know</span>
-                <h2 class="section-title">Skills & Technologies</h2>
+                <span class="section-tag reveal-up"><i class="fas fa-code"></i> What I know</span>
+                <h2 class="section-title reveal-up">Skills &amp; Technologies</h2>
+            </div>
+            <div class="skills-orbit reveal-up">
+                <div class="orbit-center">
+                    <span>TECH<br>STACK</span>
+                </div>
+                <div class="orbit-track t1">
+                    <div class="orbit-item" style="--i:0;--total:4"><i class="fas fa-shield-halved"></i><span>Wiz</span></div>
+                    <div class="orbit-item" style="--i:1;--total:4"><i class="fab fa-python"></i><span>Python</span></div>
+                    <div class="orbit-item" style="--i:2;--total:4"><i class="fas fa-robot"></i><span>AI</span></div>
+                    <div class="orbit-item" style="--i:3;--total:4"><i class="fas fa-ticket"></i><span>ServiceNow</span></div>
+                </div>
+                <div class="orbit-track t2">
+                    <div class="orbit-item" style="--i:0;--total:6"><i class="fab fa-microsoft"></i><span>Azure</span></div>
+                    <div class="orbit-item" style="--i:1;--total:6"><i class="fab fa-aws"></i><span>AWS</span></div>
+                    <div class="orbit-item" style="--i:2;--total:6"><i class="fab fa-docker"></i><span>Docker</span></div>
+                    <div class="orbit-item" style="--i:3;--total:6"><i class="fas fa-dharmachakra"></i><span>K8s</span></div>
+                    <div class="orbit-item" style="--i:4;--total:6"><i class="fas fa-cube"></i><span>Terraform</span></div>
+                    <div class="orbit-item" style="--i:5;--total:6"><i class="fas fa-infinity"></i><span>DevOps</span></div>
+                </div>
             </div>
             <div class="skills-grid">
-                <div class="skill-category">
-                    <h3 class="category-title">
-                        <i class="fab fa-microsoft"></i>
-                        Azure Cloud Platform
-                    </h3>
-                    <div class="skill-items">
-                        <div class="skill-item">
-                            <i class="fas fa-server"></i>
-                            <span>Compute & VMs</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="90"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-database"></i>
-                            <span>Storage & Active Directory</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="85"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-network-wired"></i>
-                            <span>VNet, Subnets, VMSS</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="85"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-terminal"></i>
-                            <span>PowerApps & Azure CLI</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="80"></div>
-                            </div>
-                        </div>
+                <div class="skill-card tilt-card reveal-up">
+                    <div class="sc-glow"></div>
+                    <div class="sc-header"><div class="sc-icon"><i class="fas fa-shield-halved"></i></div><h3>Cyber Security</h3></div>
+                    <div class="sc-tags">
+                        <span>Wiz</span><span>ServiceNow</span><span>CSPM</span><span>Vulnerability Mgmt</span><span>Threat Detection</span><span>Incident Response</span><span>Compliance</span>
                     </div>
                 </div>
-
-                <div class="skill-category">
-                    <h3 class="category-title">
-                        <i class="fab fa-aws"></i>
-                        AWS Cloud Platform
-                    </h3>
-                    <div class="skill-items">
-                        <div class="skill-item">
-                            <i class="fas fa-server"></i>
-                            <span>EC2, S3, IAM, VPC</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="90"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-dharmachakra"></i>
-                            <span>EKS & Auto Scaling</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="85"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-network-wired"></i>
-                            <span>Route 53, SNS, SFTP</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="80"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-code"></i>
-                            <span>AWS SDK, CLI, API Gateway</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="85"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-database"></i>
-                            <span>RDS, DynamoDB, Load Balancer</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="80"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-key"></i>
-                            <span>Secret Manager</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="75"></div>
-                            </div>
-                        </div>
+                <div class="skill-card tilt-card reveal-up">
+                    <div class="sc-glow"></div>
+                    <div class="sc-header"><div class="sc-icon"><i class="fas fa-robot"></i></div><h3>AI &amp; Automation</h3></div>
+                    <div class="sc-tags">
+                        <span>Python</span><span>AI Automation</span><span>Shell Scripting</span><span>YAML</span><span>JSON</span><span>Postman</span>
                     </div>
                 </div>
-
-                <div class="skill-category">
-                    <h3 class="category-title">
-                        <i class="fas fa-shipping-fast"></i>
-                        CI/CD & DevOps
-                    </h3>
-                    <div class="skill-items">
-                        <div class="skill-item">
-                            <i class="fab fa-microsoft"></i>
-                            <span>Azure DevOps</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="95"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fab fa-github"></i>
-                            <span>GitHub Actions</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="85"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fab fa-gitlab"></i>
-                            <span>GitLab CI/CD</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="80"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fab fa-jenkins"></i>
-                            <span>Jenkins</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="85"></div>
-                            </div>
-                        </div>
+                <div class="skill-card tilt-card reveal-up">
+                    <div class="sc-glow"></div>
+                    <div class="sc-header"><div class="sc-icon"><i class="fab fa-microsoft"></i></div><h3>Azure Cloud</h3></div>
+                    <div class="sc-tags">
+                        <span>Compute & VMs</span><span>Storage</span><span>Active Directory</span><span>VNet & Subnets</span><span>VMSS</span><span>PowerApps</span><span>Azure CLI</span>
                     </div>
                 </div>
-
-                <div class="skill-category">
-                    <h3 class="category-title">
-                        <i class="fas fa-box"></i>
-                        Containers & Orchestration
-                    </h3>
-                    <div class="skill-items">
-                        <div class="skill-item">
-                            <i class="fab fa-docker"></i>
-                            <span>Docker</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="90"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-dharmachakra"></i>
-                            <span>AKS (Azure Kubernetes)</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="85"></div>
-                            </div>
-                        </div>
+                <div class="skill-card tilt-card reveal-up">
+                    <div class="sc-glow"></div>
+                    <div class="sc-header"><div class="sc-icon"><i class="fab fa-aws"></i></div><h3>AWS Cloud</h3></div>
+                    <div class="sc-tags">
+                        <span>EC2</span><span>S3</span><span>IAM</span><span>VPC</span><span>RDS</span><span>EKS</span><span>Route 53</span><span>CloudFormation</span><span>API Gateway</span><span>Secret Manager</span>
                     </div>
                 </div>
-
-                <div class="skill-category">
-                    <h3 class="category-title">
-                        <i class="fas fa-layer-group"></i>
-                        Infrastructure & Automation
-                    </h3>
-                    <div class="skill-items">
-                        <div class="skill-item">
-                            <i class="fas fa-cube"></i>
-                            <span>Terraform</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="90"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-server"></i>
-                            <span>Ansible</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="80"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-shield-alt"></i>
-                            <span>SonarQube</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="80"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-paper-plane"></i>
-                            <span>Postman</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="85"></div>
-                            </div>
-                        </div>
+                <div class="skill-card tilt-card reveal-up">
+                    <div class="sc-glow"></div>
+                    <div class="sc-header"><div class="sc-icon"><i class="fas fa-infinity"></i></div><h3>CI/CD &amp; DevOps</h3></div>
+                    <div class="sc-tags">
+                        <span>Azure DevOps</span><span>GitHub Actions</span><span>GitLab CI/CD</span><span>Jenkins</span><span>SonarQube</span>
                     </div>
                 </div>
-
-                <div class="skill-category">
-                    <h3 class="category-title">
-                        <i class="fas fa-code"></i>
-                        Scripting & Configuration
-                    </h3>
-                    <div class="skill-items">
-                        <div class="skill-item">
-                            <i class="fab fa-linux"></i>
-                            <span>Shell Scripting</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="90"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-file-code"></i>
-                            <span>YAML</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="90"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-brackets-curly"></i>
-                            <span>JSON</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="85"></div>
-                            </div>
-                        </div>
+                <div class="skill-card tilt-card reveal-up">
+                    <div class="sc-glow"></div>
+                    <div class="sc-header"><div class="sc-icon"><i class="fab fa-docker"></i></div><h3>Containers &amp; IaC</h3></div>
+                    <div class="sc-tags">
+                        <span>Docker</span><span>Kubernetes</span><span>AKS</span><span>Terraform</span><span>Ansible</span><span>Nginx</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
+    <!-- ===== PROJECTS ===== -->
+    <section id="projects" class="section projects">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">My Work</span>
-                <h2 class="section-title">Featured Projects</h2>
+                <span class="section-tag reveal-up"><i class="fas fa-rocket"></i> My Work</span>
+                <h2 class="section-title reveal-up">Featured Projects</h2>
             </div>
             <div class="projects-grid">
-                <a href="https://mahendarmax.github.io/Training/" target="_blank" class="project-card">
-                    <div class="project-image">
-                        <div class="project-overlay">
-                            <div class="project-link">
-                                <i class="fas fa-external-link-alt"></i>
-                            </div>
-                        </div>
-                        <div class="project-icon">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Training Portal</h3>
-                        <p class="project-description">
-                            Comprehensive DevOps training resources and tutorials for aspiring engineers. Features hands-on guides and best practices.
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">Education</span>
-                            <span class="tag">DevOps</span>
-                            <span class="tag">Web</span>
-                        </div>
+                <a href="https://mahendarmax.github.io/Training/" target="_blank" rel="noopener noreferrer" class="proj-card tilt-card reveal-up">
+                    <div class="proj-bg"></div>
+                    <div class="proj-body">
+                        <div class="proj-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h3>Training Portal</h3>
+                        <p>Comprehensive DevOps training resources and tutorials for aspiring engineers. Features hands-on guides and best practices.</p>
+                        <div class="proj-tags"><span>Education</span><span>DevOps</span><span>Web</span></div>
+                        <div class="proj-arrow"><i class="fas fa-arrow-up-right-from-square"></i></div>
                     </div>
                 </a>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-overlay">
-                            <div class="project-link">
-                                <i class="fas fa-external-link-alt"></i>
-                            </div>
-                        </div>
-                        <div class="project-icon">
-                            <i class="fas fa-hospital"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Mubadala Health</h3>
-                        <p class="project-description">
-                            Managed Azure DevOps lifecycle and CI/CD pipelines. Built CRM pipelines for multi-tenant environments with automated testing and deployment for .NET applications.
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">Azure DevOps</span>
-                            <span class="tag">CI/CD</span>
-                            <span class="tag">.NET</span>
-                            <span class="tag">SonarQube</span>
-                        </div>
+                <div class="proj-card tilt-card reveal-up">
+                    <div class="proj-bg"></div>
+                    <div class="proj-body">
+                        <div class="proj-icon"><i class="fas fa-hospital"></i></div>
+                        <h3>Mubadala Health</h3>
+                        <p>Managed Azure DevOps lifecycle and CI/CD pipelines. Built CRM pipelines for multi-tenant environments with automated testing and deployment for .NET apps.</p>
+                        <div class="proj-tags"><span>Azure DevOps</span><span>CI/CD</span><span>.NET</span><span>SonarQube</span></div>
                     </div>
                 </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-overlay">
-                            <div class="project-link">
-                                <i class="fas fa-external-link-alt"></i>
-                            </div>
-                        </div>
-                        <div class="project-icon">
-                            <i class="fas fa-box-open"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">DevOps-in-a-Box</h3>
-                        <p class="project-description">
-                            Automated AWS infrastructure setup using Terraform (VPC, RDS). Built CI/CD pipelines for serverless environments and utilized Velero for Kubernetes cluster backups.
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">AWS</span>
-                            <span class="tag">Terraform</span>
-                            <span class="tag">Kubernetes</span>
-                            <span class="tag">Docker</span>
-                        </div>
+                <div class="proj-card tilt-card reveal-up">
+                    <div class="proj-bg"></div>
+                    <div class="proj-body">
+                        <div class="proj-icon"><i class="fas fa-box-open"></i></div>
+                        <h3>DevOps-in-a-Box</h3>
+                        <p>Automated AWS infrastructure setup using Terraform (VPC, RDS). Built CI/CD pipelines for serverless environments and utilized Velero for Kubernetes cluster backups.</p>
+                        <div class="proj-tags"><span>AWS</span><span>Terraform</span><span>Kubernetes</span><span>Docker</span></div>
                     </div>
                 </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-overlay">
-                            <div class="project-link">
-                                <i class="fas fa-external-link-alt"></i>
-                            </div>
-                        </div>
-                        <div class="project-icon">
-                            <i class="fas fa-bullseye"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">7-Targets</h3>
-                        <p class="project-description">
-                            Built CI/CD pipelines for S3 static website hosting. Automated AWS infrastructure (S3, CloudFront, Route 53) using Terraform and managed SNS topics with CloudFormation.
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">AWS S3</span>
-                            <span class="tag">CloudFront</span>
-                            <span class="tag">Route 53</span>
-                            <span class="tag">Terraform</span>
-                        </div>
+                <div class="proj-card tilt-card reveal-up">
+                    <div class="proj-bg"></div>
+                    <div class="proj-body">
+                        <div class="proj-icon"><i class="fas fa-bullseye"></i></div>
+                        <h3>7-Targets</h3>
+                        <p>Built CI/CD pipelines for S3 static website hosting. Automated AWS infrastructure (S3, CloudFront, Route 53) using Terraform and managed SNS topics with CloudFormation.</p>
+                        <div class="proj-tags"><span>AWS S3</span><span>CloudFront</span><span>Route 53</span><span>Terraform</span></div>
                     </div>
                 </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-overlay">
-                            <div class="project-link">
-                                <i class="fas fa-external-link-alt"></i>
-                            </div>
-                        </div>
-                        <div class="project-icon">
-                            <i class="fas fa-server"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">SFTP Automation</h3>
-                        <p class="project-description">
-                            Automated SFTP user management using AWS SDK, API Gateway, S3, and Secrets Manager with both password and SSH-based authentication methods.
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">AWS SDK</span>
-                            <span class="tag">API Gateway</span>
-                            <span class="tag">S3</span>
-                            <span class="tag">Automation</span>
-                        </div>
+                <div class="proj-card tilt-card reveal-up">
+                    <div class="proj-bg"></div>
+                    <div class="proj-body">
+                        <div class="proj-icon"><i class="fas fa-server"></i></div>
+                        <h3>SFTP Automation</h3>
+                        <p>Automated SFTP user management using AWS SDK, API Gateway, S3, and Secrets Manager with both password and SSH-based authentication methods.</p>
+                        <div class="proj-tags"><span>AWS SDK</span><span>API Gateway</span><span>S3</span><span>Automation</span></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" class="section contact">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Get In Touch</span>
-                <h2 class="section-title">Let's Connect</h2>
+                <span class="section-tag reveal-up"><i class="fas fa-paper-plane"></i> Get In Touch</span>
+                <h2 class="section-title reveal-up">Let's Connect</h2>
             </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <p class="contact-intro">
-                        I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
-                    </p>
-                    <div class="contact-methods">
-                        <a href="mailto:ar.mahendar1999@gmail.com" class="contact-method">
-                            <div class="method-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="method-details">
-                                <span class="method-label">Email</span>
-                                <span class="method-value">ar.mahendar1999@gmail.com</span>
-                            </div>
-                        </a>
-                        <a href="https://www.linkedin.com/in/mahendar-s-3913a6290" target="_blank" class="contact-method">
-                            <div class="method-icon">
-                                <i class="fab fa-linkedin"></i>
-                            </div>
-                            <div class="method-details">
-                                <span class="method-label">LinkedIn</span>
-                                <span class="method-value">Mahendar S</span>
-                            </div>
-                        </a>
-                        <a href="https://github.com/Mahendarmax/Mahendarmax" target="_blank" class="contact-method">
-                            <div class="method-icon">
-                                <i class="fab fa-github"></i>
-                            </div>
-                            <div class="method-details">
-                                <span class="method-label">GitHub</span>
-                                <span class="method-value">@Mahendarmax</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+            <p class="contact-intro reveal-up">I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.</p>
+            <div class="contact-grid">
+                <a href="mailto:ar.mahendar1999@gmail.com" class="c-card tilt-card reveal-up">
+                    <div class="c-icon"><i class="fas fa-envelope"></i></div>
+                    <span class="c-label">Email</span>
+                    <span class="c-value">ar.mahendar1999@gmail.com</span>
+                </a>
+                <a href="https://www.linkedin.com/in/mahendar-s-3913a6290" target="_blank" rel="noopener noreferrer" class="c-card tilt-card reveal-up">
+                    <div class="c-icon"><i class="fab fa-linkedin-in"></i></div>
+                    <span class="c-label">LinkedIn</span>
+                    <span class="c-value">Mahendar S</span>
+                </a>
+                <a href="https://github.com/Mahendarmax/Mahendarmax" target="_blank" rel="noopener noreferrer" class="c-card tilt-card reveal-up">
+                    <div class="c-icon"><i class="fab fa-github"></i></div>
+                    <span class="c-label">GitHub</span>
+                    <span class="c-value">@Mahendarmax</span>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-left">
-                    <p>&copy; 2025 Mahendar Shivarathri. All rights reserved.</p>
-                </div>
-                <div class="footer-right">
-                    <div class="social-links">
-                        <a href="https://github.com/Mahendarmax/Mahendarmax" target="_blank" class="social-link">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/mahendar-s-3913a6290" target="_blank" class="social-link">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="mailto:ar.mahendar1999@gmail.com" class="social-link">
-                            <i class="fas fa-envelope"></i>
-                        </a>
-                    </div>
+            <div class="footer-row">
+                <p>&copy; 2025 Mahendar Shivarathri. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="https://github.com/Mahendarmax/Mahendarmax" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/mahendar-s-3913a6290" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="mailto:ar.mahendar1999@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
                 </div>
             </div>
         </div>
@@ -610,4 +425,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-

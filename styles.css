@@ -386,33 +386,42 @@ a{color:inherit;text-decoration:none}
 .r3{width:150%;height:150%;border-color:rgba(var(--pink-rgb),.1);animation-duration:36s}
 @keyframes ringRotate{to{transform:translate(-50%,-50%) rotate(360deg)}}
 
-/* Tech Orbs */
+/* Tech Orbs — Orbiting */
+.tech-orbs-orbit{
+  position:absolute;inset:0;z-index:5;
+  animation:orbitSpin 25s linear infinite;
+  transform-origin:center center;
+  pointer-events:none;
+}
 .tech-orb{
   position:absolute;
   display:flex;align-items:center;gap:6px;
   padding:10px 16px;border-radius:var(--radius-pill);
-  background:rgba(15,22,41,.8);
+  background:rgba(15,22,41,.85);
   backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   border:1px solid var(--glass-border);
   color:var(--text1);font-size:.8rem;font-weight:600;
   box-shadow:var(--shadow-card);
-  animation:orbFloat 3.5s ease-in-out infinite;
-  transition:var(--transition);z-index:5;
+  transition:var(--transition);
+  pointer-events:auto;
+  will-change:transform;
 }
 .tech-orb:hover{background:rgba(var(--primary-rgb),.2);border-color:rgba(var(--primary-rgb),.5);transform:scale(1.15)!important}
 .tech-orb i{font-size:1.1rem;color:var(--neon)}
-/* Evenly spaced around the circle: top, top-right, right, bottom-right, bottom-left, left */
-.o1{top:-10%;left:50%;transform:translateX(-50%);animation-delay:0s}
-.o2{top:8%;right:-18%;animation-delay:.5s}
-.o3{bottom:8%;right:-18%;animation-delay:1s}
-.o4{bottom:-10%;left:50%;transform:translateX(-50%);animation-delay:1.5s}
-.o5{bottom:8%;left:-18%;animation-delay:2s}
-.o6{top:8%;left:-18%;animation-delay:2.5s}
 
-@keyframes orbFloat{
-  0%,100%{transform:translateY(0) rotate(0deg)}
-  33%{transform:translateY(-14px) rotate(3deg)}
-  66%{transform:translateY(6px) rotate(-2deg)}
+/* Position orbs evenly around circle (60° apart), counter-rotate to stay upright */
+.o1{top:-8%;left:50%;transform:translateX(-50%);animation:counterSpin 25s linear infinite}
+.o2{top:10%;right:-20%;animation:counterSpin 25s linear infinite}
+.o3{bottom:10%;right:-20%;animation:counterSpin 25s linear infinite}
+.o4{bottom:-8%;left:50%;transform:translateX(-50%);animation:counterSpin 25s linear infinite}
+.o5{bottom:10%;left:-20%;animation:counterSpin 25s linear infinite}
+.o6{top:10%;left:-20%;animation:counterSpin 25s linear infinite}
+
+@keyframes orbitSpin{
+  to{transform:rotate(360deg)}
+}
+@keyframes counterSpin{
+  to{transform:rotate(-360deg)}
 }
 
 /* Scroll hint */
@@ -1028,7 +1037,7 @@ a{color:inherit;text-decoration:none}
   .hero{padding:100px 20px 60px}
   .hero-name .line-1,.hero-name .line-2{font-size:2.4rem}
   .profile-3d{width:240px;height:240px}
-  .tech-orb{display:none}
+  .tech-orbs-orbit,.tech-orb{display:none}
   .bg-grid{display:none}
 
   .timeline{padding-left:40px}

@@ -394,16 +394,27 @@ a{color:inherit;text-decoration:none}
 /* Orbit Rings around profile */
 .orbit-ring{
   position:absolute;border-radius:50%;
-  border:1px solid rgba(var(--primary-rgb),.15);
   animation:ringRotate 20s linear infinite;
   top:50%;left:50%;transform:translate(-50%,-50%);
 }
-.r1{width:110%;height:110%;animation-duration:20s}
-.r2{width:130%;height:130%;border-color:rgba(var(--accent-rgb),.12);animation-duration:28s;animation-direction:reverse}
-.r3{width:150%;height:150%;border-color:rgba(var(--pink-rgb),.1);animation-duration:36s}
+.r1{width:110%;height:110%;animation-duration:18s;
+  border:1.5px solid transparent;
+  background:linear-gradient(var(--dark),var(--dark)) padding-box,
+    linear-gradient(135deg,rgba(var(--neon-rgb),.35),rgba(var(--primary-rgb),.2),rgba(var(--pink-rgb),.3)) border-box;
+}
+.r2{width:130%;height:130%;animation-duration:26s;animation-direction:reverse;
+  border:1px solid transparent;
+  background:linear-gradient(var(--dark),var(--dark)) padding-box,
+    linear-gradient(135deg,rgba(var(--pink-rgb),.25),rgba(var(--accent-rgb),.2),rgba(var(--purple-rgb),.3)) border-box;
+}
+.r3{width:150%;height:150%;animation-duration:34s;
+  border:1px solid transparent;
+  background:linear-gradient(var(--dark),var(--dark)) padding-box,
+    linear-gradient(135deg,rgba(var(--accent-rgb),.2),rgba(var(--primary-rgb),.15),rgba(var(--neon-rgb),.2)) border-box;
+}
 @keyframes ringRotate{to{transform:translate(-50%,-50%) rotate(360deg)}}
 
-/* Tech Orbs — Orbiting */
+/* Tech Orbs — Orbiting on a perfect circle */
 .tech-orbs-orbit{
   position:absolute;inset:0;z-index:5;
   animation:orbitSpin 25s linear infinite;
@@ -411,7 +422,7 @@ a{color:inherit;text-decoration:none}
   pointer-events:none;
 }
 .tech-orb{
-  position:absolute;
+  position:absolute;top:50%;left:50%;
   display:flex;align-items:center;gap:6px;
   padding:10px 16px;border-radius:var(--radius-pill);
   background:rgba(15,22,41,.85);
@@ -419,30 +430,47 @@ a{color:inherit;text-decoration:none}
   border:1px solid var(--glass-border);
   color:var(--text1);font-size:.8rem;font-weight:600;
   box-shadow:var(--shadow-card);
-  transition:var(--transition);
+  transition:background .3s,border-color .3s;
   pointer-events:auto;
   will-change:transform;
 }
-.tech-orb:hover{background:rgba(var(--primary-rgb),.2);border-color:rgba(var(--primary-rgb),.5);transform:scale(1.15)!important}
+.tech-orb:hover{background:rgba(var(--primary-rgb),.2);border-color:rgba(var(--primary-rgb),.5)}
 .tech-orb i{font-size:1.1rem;color:var(--neon)}
 
-/* Position orbs evenly around circle (60° apart), counter-rotate to stay upright */
-.o1{top:-28%;left:50%;animation:counterSpinCenter 25s linear infinite}
-.o2{top:5%;right:-28%;animation:counterSpin 25s linear infinite}
-.o3{bottom:5%;right:-28%;animation:counterSpin 25s linear infinite}
-.o4{bottom:-28%;left:50%;animation:counterSpinCenter 25s linear infinite}
-.o5{bottom:5%;left:-28%;animation:counterSpin 25s linear infinite}
-.o6{top:5%;left:-28%;animation:counterSpin 25s linear infinite}
+/* 6 orbs on a perfect circle, radius 210px, 60° apart, counter-rotate to stay upright */
+/* 0°=top, 60°=top-right, 120°=bottom-right, 180°=bottom, 240°=bottom-left, 300°=top-left */
+/* sin/cos: 0°(0,-1) 60°(.866,-.5) 120°(.866,.5) 180°(0,1) 240°(-.866,.5) 300°(-.866,-.5) */
+.o1{animation:cSpin0 25s linear infinite}
+.o2{animation:cSpin60 25s linear infinite}
+.o3{animation:cSpin120 25s linear infinite}
+.o4{animation:cSpin180 25s linear infinite}
+.o5{animation:cSpin240 25s linear infinite}
+.o6{animation:cSpin300 25s linear infinite}
 
-@keyframes orbitSpin{
-  to{transform:rotate(360deg)}
+@keyframes orbitSpin{to{transform:rotate(360deg)}}
+@keyframes cSpin0{
+  from{transform:translate(-50%,-50%) translate(0px,-210px) rotate(0deg)}
+  to{transform:translate(-50%,-50%) translate(0px,-210px) rotate(-360deg)}
 }
-@keyframes counterSpin{
-  to{transform:rotate(-360deg)}
+@keyframes cSpin60{
+  from{transform:translate(-50%,-50%) translate(182px,-105px) rotate(0deg)}
+  to{transform:translate(-50%,-50%) translate(182px,-105px) rotate(-360deg)}
 }
-@keyframes counterSpinCenter{
-  from{transform:translateX(-50%) rotate(0deg)}
-  to{transform:translateX(-50%) rotate(-360deg)}
+@keyframes cSpin120{
+  from{transform:translate(-50%,-50%) translate(182px,105px) rotate(0deg)}
+  to{transform:translate(-50%,-50%) translate(182px,105px) rotate(-360deg)}
+}
+@keyframes cSpin180{
+  from{transform:translate(-50%,-50%) translate(0px,210px) rotate(0deg)}
+  to{transform:translate(-50%,-50%) translate(0px,210px) rotate(-360deg)}
+}
+@keyframes cSpin240{
+  from{transform:translate(-50%,-50%) translate(-182px,105px) rotate(0deg)}
+  to{transform:translate(-50%,-50%) translate(-182px,105px) rotate(-360deg)}
+}
+@keyframes cSpin300{
+  from{transform:translate(-50%,-50%) translate(-182px,-105px) rotate(0deg)}
+  to{transform:translate(-50%,-50%) translate(-182px,-105px) rotate(-360deg)}
 }
 
 /* Scroll hint */
